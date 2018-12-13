@@ -1,0 +1,29 @@
+server:
+  port: 9001
+
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: mongoUser
+      password: mongoPassword
+      database: mongoDatabase
+
+ad:
+  domain: ldapDomain
+  url: ldapUrl
+
+jwt:
+  clientId: client
+  clientSecret: secret
+  grantType: password
+  authorizationCode: authorization_code
+  refreshToken: refresh_token
+  implicit: implicit
+  scopeRead: read
+  scopeWrite: write
+  accessTokenValiditySeconds: 600000
+  refreshTokenValiditySeconds: 600000
+  trust: trust
+  signingKey: signingKey
