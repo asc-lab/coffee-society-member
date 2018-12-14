@@ -35,6 +35,7 @@ class UserService(private val userRepository: UserRepository) {
     fun updateRole(userDto: UserDto) {
         val user = userRepository.findByName(userDto.username)
         user.roles = userDto.roles.joinToString(",")
+        userRepository.save(user)
     }
 
     fun exists(userName: String): Boolean {
