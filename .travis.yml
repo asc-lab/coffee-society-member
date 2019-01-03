@@ -15,7 +15,7 @@ script:
     - make TAG=${TRAVIS_BUILD_NUMBER} tag
     - make TAG=${TRAVIS_BUILD_NUMBER} push-tag
     - make push-latest
-    - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar
+    - make analyze
 
 cache:
     directories:

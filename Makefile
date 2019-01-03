@@ -11,6 +11,9 @@ build-docker:
 clean:
 	mvn clean
 
+analyze:
+	mvn org.jacoco:jacoco-maven-plugin:prepare-agent sonar:sonar
+
 run-jar:
 	java -jar target/coffee-society-member*.jar
 
