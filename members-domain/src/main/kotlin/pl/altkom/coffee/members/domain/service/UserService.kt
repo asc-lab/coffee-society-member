@@ -1,6 +1,11 @@
 package pl.altkom.coffee.members.domain.service
 
+import mu.KLogging
+import org.axonframework.eventhandling.EventBus
+import org.axonframework.eventhandling.GenericEventMessage
+import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Service
+import pl.altkom.coffee.members.api.MemberCreatedEvent
 import pl.altkom.coffee.members.api.dto.UserDto
 import pl.altkom.coffee.members.api.enums.UserRole
 import pl.altkom.coffee.members.domain.model.User
@@ -8,17 +13,22 @@ import pl.altkom.coffee.members.domain.repository.UserRepository
 import kotlin.streams.toList
 
 @Service
-class UserService(private val userRepository: UserRepository) {
+class UserService(private val userRepository: UserRepository, @Qualifier("eventStore") private val eventBus: EventBus) {
+
+    companion object : KLogging()
 
     fun loadUserByUsername(userName: String): User {
         return userRepository.findByName(userName)
     }
 
     fun registerUser(userName: String): User {
+
         return userRepository.save(User(userName))
     }
 
     fun findAllUser(): List<UserDto> {
+        logger.info(GenericEventMessage.asEventMessage<MemberCreatedEvent>(MemberCreatedEvent("123")).identifier)
+        eventBus!!.publish(GenericEventMessage.asEventMessage<MemberCreatedEvent>(MemberCreatedEvent("123")))
         return userRepository.findAll().stream().map { it ->
             UserDto(it.name,
                     it.roles.split(",")
