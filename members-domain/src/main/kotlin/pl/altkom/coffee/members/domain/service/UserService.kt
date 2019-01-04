@@ -22,13 +22,12 @@ class UserService(private val userRepository: UserRepository, @Qualifier("eventS
     }
 
     fun registerUser(userName: String): User {
-
-        return userRepository.save(User(userName))
+        val user = userRepository.save(User(userName))
+        eventBus.publish(GenericEventMessage.asEventMessage<MemberCreatedEvent>(MemberCreatedEvent(user.id!!)))
+        return user
     }
 
     fun findAllUser(): List<UserDto> {
-        logger.info(GenericEventMessage.asEventMessage<MemberCreatedEvent>(MemberCreatedEvent("123")).identifier)
-        eventBus!!.publish(GenericEventMessage.asEventMessage<MemberCreatedEvent>(MemberCreatedEvent("123")))
         return userRepository.findAll().stream().map { it ->
             UserDto(it.name,
                     it.roles.split(",")
