@@ -1,6 +1,6 @@
 # CoffeeSociety Member Service
 [![Build Status](https://travis-ci.org/asc-lab/coffee-society-member.svg?branch=master)](https://travis-ci.org/asc-lab/coffee-society-member)
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=pl.altkom.coffee.product%3Aproduct-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=pl.altkom.coffee.members%3Amembers-parent)
+[![Code Quality](https://sonarcloud.io/api/project_badges/measure?project=pl.altkom.coffee.product%3Aproduct-parent&metric=alert_status)](https://sonarcloud.io/dashboard?id=pl.altkom.coffee.members%3Amembers-parent)
 
 ## Building
 
