@@ -11,8 +11,8 @@ spring:
       database: ${MONGO_DB:mongoDatabase}
 
 ad:
-  domain: ldapDomain
-  url: ldapUrl
+  domain: ${LDAP_DOMAIN:ldapDomain}
+  url: ${LDAP_URL:ldapUrl}
 
 jwt:
   clientId: client
