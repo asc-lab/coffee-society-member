@@ -6,9 +6,9 @@ spring:
     mongodb:
       host: ${MONGO_HOST:localhost}
       port: ${MONGO_PORT:27017}
-      username: ${MONGO_USER:mongoUser}
-      password: ${MONGO_PASS:mongoPassword}
-      database: ${MONGO_DB:mongoDatabase}
+      username: ${MONGO_USER:admin}
+      password: ${MONGO_PASS:admin}
+      database: ${MONGO_DB:admin}
 
 ad:
   domain: ${LDAP_DOMAIN:ldapDomain}
