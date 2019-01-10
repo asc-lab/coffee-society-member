@@ -27,3 +27,9 @@ jwt:
   refreshTokenValiditySeconds: 600000
   trust: trust
   signingKey: signingKey
+
+# workaround: https://stackoverflow.com/questions/46916921/spring-boot-actuator-ldap-health-endpoint-throwing-npe
+management:
+  health:
+    ldap:
+      enabled: false
