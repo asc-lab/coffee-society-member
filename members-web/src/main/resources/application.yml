@@ -19,8 +19,8 @@ ad:
   url: ${LDAP_URL:ldapUrl}
 
 jwt:
-  clientId: client
-  clientSecret: secret
+  clientId: ${OAUTH_CLIENT:client}
+  clientSecret: ${OAUTH_SECRET:{noop}secret}
   grantType: password
   authorizationCode: authorization_code
   refreshToken: refresh_token
@@ -30,7 +30,7 @@ jwt:
   accessTokenValiditySeconds: 600000
   refreshTokenValiditySeconds: 600000
   trust: trust
-  signingKey: signingKey
+  signingKey: ${OAUTH_SIGNING_KEY:signingKey}
 
 # workaround: https://stackoverflow.com/questions/46916921/spring-boot-actuator-ldap-health-endpoint-throwing-npe
 management:
