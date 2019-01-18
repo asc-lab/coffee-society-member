@@ -15,8 +15,8 @@ axon:
     servers: ${AXON_HOST:localhost}
 
 ad:
-  domain: ${LDAP_DOMAIN:ldapDomain}
-  url: ${LDAP_URL:ldapUrl}
+  domain: ${LDAP_DOMAIN:ou=people,dc=planetexpress,dc=com}
+  url: ${LDAP_URL:ldap://ldap:389}
 
 jwt:
   clientId: ${OAUTH_CLIENT:client}
