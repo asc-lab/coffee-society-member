@@ -14,6 +14,8 @@ axon:
   axonserver:
     servers: ${AXON_HOST:localhost}
 
+mockSecurity: ${MOCK_SECURITY:false}
+
 ad:
   domain: ${LDAP_DOMAIN:ou=people,dc=planetexpress,dc=com}
   url: ${LDAP_URL:ldap://ldap:389}
