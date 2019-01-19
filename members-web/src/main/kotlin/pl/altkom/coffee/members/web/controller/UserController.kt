@@ -8,7 +8,7 @@ import pl.altkom.coffee.members.domain.service.UserService
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/members")
 class UserController(private val userService: UserService) {
 
     @PreAuthorize("hasAuthority('ADMIN')")
