@@ -19,12 +19,16 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 import org.springframework.web.filter.CorsFilter
 import pl.altkom.coffee.members.api.enums.UserRole
 import java.util.*
+import pl.altkom.coffee.members.domain.service.UserService
 
 @Configuration
 @ConditionalOnProperty(name = ["mockSecurity"], havingValue = "true")
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 class TestSecurityConfig : WebSecurityConfigurerAdapter() {
+
+    @Autowired
+    private lateinit var userService: UserService
 
     @Autowired
     @Throws(Exception::class)
@@ -64,10 +68,11 @@ class TestSecurityConfig : WebSecurityConfigurerAdapter() {
     @Bean
     @Throws(Exception::class)
     override fun authenticationManager(): AuthenticationManager {
-        return MockAuthenticaionProviderManager(Arrays.asList(activeDirectoryLdapAuthenticationProvider()))
+        return MockAuthenticaionProviderManager(Arrays.asList(activeDirectoryLdapAuthenticationProvider()), userService)
     }
 
-    class MockAuthenticaionProviderManager(ldapProviders: MutableList<AuthenticationProvider>) : ProviderManager(ldapProviders) {
+    class MockAuthenticaionProviderManager(ldapProviders: MutableList<AuthenticationProvider>,
+                                           private val userService: UserService) : ProviderManager(ldapProviders) {
 
         override fun authenticate(authentication: Authentication?): Authentication {
             val auth = super.authenticate(authentication)
@@ -80,6 +85,12 @@ class TestSecurityConfig : WebSecurityConfigurerAdapter() {
         private fun authenticateUser(user: Authentication): Authentication {
             val userDetails = user.principal as LdapUserDetailsImpl
             val principal = User(userDetails.username, "", user.authorities)
+
+            val authenticatedUser = when (userService.exists(userDetails.username)) {
+                true -> userService.loadUserByUsername(userDetails.username)
+                false -> userService.registerUser(userDetails.username)
+            }
+
             return UsernamePasswordAuthenticationToken(principal, "", user.authorities)
         }
 

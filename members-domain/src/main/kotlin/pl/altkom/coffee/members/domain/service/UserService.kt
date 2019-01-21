@@ -29,7 +29,8 @@ class UserService(private val userRepository: UserRepository, @Qualifier("eventS
 
     fun findAllUser(): List<UserDto> {
         return userRepository.findAll().stream().map { it ->
-            UserDto(it.name,
+            UserDto(it.id!!,
+                    it.name,
                     it.roles.split(",")
                             .filter {
                                 it.isNotBlank()
